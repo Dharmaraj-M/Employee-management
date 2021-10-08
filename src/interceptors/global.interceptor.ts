@@ -37,9 +37,9 @@ export class GlobalInterceptor implements Provider<Interceptor> {
     next: () => ValueOrPromise<InvocationResult>,
   ) {
     try {
-      // Add pre-invocation logic here
+      console.log('log: before-' + invocationCtx.methodName);
       const result = await next();
-      // Add post-invocation logic here
+      console.log('log: after-' + invocationCtx.methodName);
       return result;
     } catch (error) {
       if (error['code'] === 'ENTITY_NOT_FOUND') {

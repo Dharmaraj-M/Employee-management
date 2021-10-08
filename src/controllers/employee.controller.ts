@@ -13,13 +13,6 @@ import {EmployeeRequest} from '../models';
 import {EmployeeRepository} from '../repositories';
 import {EmployeeService} from '../services';
 
-// const log: Interceptor = async (invocationCtx, next) => {
-//   console.log('log: before-' + invocationCtx.methodName);
-//   // Wait until the interceptor/method chain returns
-//   const result = await next();
-//   console.log('log: after-' + invocationCtx.methodName);
-//   return result;
-// };
 export class EmployeeController {
   constructor(
     @repository(EmployeeRepository)
@@ -64,7 +57,6 @@ export class EmployeeController {
   //   );
   // }
 
-  // @intercept(log)
   @get('/employees')
   getAllEmployees(): Promise<Response> {
     return this.employeeService.getAllEmployees();
