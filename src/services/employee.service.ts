@@ -1,6 +1,6 @@
-import {BindingScope, inject, injectable, service} from '@loopback/core';
+import {BindingScope, injectable, service} from '@loopback/core';
 import {repository} from '@loopback/repository';
-import {Response, RestBindings} from '@loopback/rest';
+import {Response} from '@loopback/rest';
 import {Employee, EmployeeRequest} from '../models';
 import {EmployeeRepository} from '../repositories';
 import {CommonService} from './common.service';
@@ -11,7 +11,6 @@ export class EmployeeService {
     @repository(EmployeeRepository)
     private employeeRepository: EmployeeRepository,
     @service(CommonService) private commonService: CommonService,
-    @inject(RestBindings.Http.RESPONSE) private response: Response,
   ) {}
 
   async getAllEmployees(): Promise<Response> {
@@ -33,14 +32,6 @@ export class EmployeeService {
       employeeId,
     );
     return this.commonService.mapResponse('success', 200, employee);
-    // try {
-    // } catch (error) {
-    //   if (error['code'] === 'ENTITY_NOT_FOUND') {
-    //     return this.mapResponse('error', 404, {}, 'Employee not found');
-    //   } else {
-    //     return this.mapResponse('error', 500, {}, 'Internal Server Error');
-    //   }
-    // }
   }
 
   async createEmployee(employeeRequest: EmployeeRequest): Promise<Response> {
@@ -52,23 +43,4 @@ export class EmployeeService {
     );
     return this.commonService.mapResponse('success', 200, employee);
   }
-
-  // private mapResponse(
-  //   status: string,
-  //   statusCode: number,
-  //   data: object,
-  //   message?: string,
-  // ): Response {
-  //   const apiResponse: ApiResponse = new ApiResponse();
-  //   if (status === 'success') {
-  //     apiResponse.status = status;
-  //     apiResponse.statusCode = statusCode;
-  //     apiResponse.data = data;
-  //   } else if (status === 'error') {
-  //     apiResponse.status = status;
-  //     apiResponse.statusCode = statusCode;
-  //     apiResponse.message = message;
-  //   }
-  //   return this.response.status(statusCode).send(apiResponse);
-  // }
 }
