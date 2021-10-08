@@ -1,7 +1,31 @@
 import {Entity, model, property} from '@loopback/repository';
 
-@model()
+@model({
+  settings: {
+    mongodb: {
+      collection: 'Employee',
+    },
+  },
+})
 export class Employee extends Entity {
+  @property({
+    type: 'string',
+    id: true,
+    generated: true,
+  })
+  employeeId?: string;
+
+  @property({
+    type: 'string',
+    required: true,
+  })
+  name: string;
+
+  @property({
+    type: 'number',
+    required: true,
+  })
+  age: number;
 
   constructor(data?: Partial<Employee>) {
     super(data);
