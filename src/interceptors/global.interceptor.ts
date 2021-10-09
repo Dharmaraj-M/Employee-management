@@ -37,36 +37,36 @@ export class GlobalInterceptor implements Provider<Interceptor> {
       } else if (error['code'] === 'VALIDATION_FAILED') {
         return this.commonService.mapResponse(
           'error',
-          400,
-          {},
+          422,
+          {error: error},
           'VALIDATION_FAILED',
         );
       } else if (error['code'] === 'INVALID_PARAMETER_VALUE') {
         return this.commonService.mapResponse(
           'error',
-          400,
-          {},
+          422,
+          {error: error},
           'INVALID_PARAMETER_VALUE',
         );
       } else if (error['code'] === 'MISSING_REQUIRED_PARAMETER') {
         return this.commonService.mapResponse(
           'error',
-          400,
-          {},
+          422,
+          {error: error},
           'MISSING_REQUIRED_PARAMETER',
         );
       } else if (error['message']) {
         return this.commonService.mapResponse(
           'error',
           400,
-          {},
+          {error: error},
           error['message'],
         );
       } else {
         return this.commonService.mapResponse(
           'error',
           500,
-          Object.assign({}, error),
+          {stack: error['stack']},
           'Internal Server Error',
         );
       }
